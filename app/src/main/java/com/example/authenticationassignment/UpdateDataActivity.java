@@ -27,8 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UpdateDataActivity extends AppCompatActivity {
 
-    private EditText editTextUpdateEmail, editTextUpdateName, editTextUpdateMobile;
-    private String txtEmail, txtFullName, txtMobile;
+    private EditText editTextUpdateEmail, editTextUpdateName, editTextUpdateMobile, editTextGender;
+    private String txtEmail, txtFullName, txtMobile, txtGender;
     private FirebaseAuth authProfile;
     private ProgressDialog progressDialog;
 
@@ -40,6 +40,7 @@ public class UpdateDataActivity extends AppCompatActivity {
         editTextUpdateEmail = findViewById(R.id.etEmail);
         editTextUpdateName = findViewById(R.id.etName);
         editTextUpdateMobile = findViewById(R.id.etPhone);
+        editTextGender = findViewById(R.id.etGender);
 
         authProfile = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = authProfile.getCurrentUser();
@@ -87,8 +88,9 @@ public class UpdateDataActivity extends AppCompatActivity {
             txtEmail = editTextUpdateEmail.getText().toString();
             txtFullName = editTextUpdateName.getText().toString();
             txtMobile = editTextUpdateMobile.getText().toString();
+            txtGender = editTextGender.getText().toString();
 
-            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(txtEmail,txtFullName,txtMobile);
+            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(txtEmail,txtFullName,txtMobile,txtGender);
             DatabaseReference referenceProfile = FirebaseDatabase.getInstance().getReference("Registered Users");
             String userID = firebaseUser.getUid();
              if (progressDialog.isShowing()) {
@@ -133,9 +135,11 @@ public class UpdateDataActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 ReadWriteUserDetails readUserDetails = snapshot.getValue(ReadWriteUserDetails.class);
                 if (readUserDetails != null){
+                    txtEmail = firebaseUser.getEmail();
                     txtFullName = firebaseUser.getDisplayName();
                     txtMobile = readUserDetails.mobile;
 
+                    editTextUpdateEmail.setText(txtEmail);
                     editTextUpdateName.setText(txtFullName);
                     editTextUpdateMobile.setText(txtMobile);
                 }

@@ -35,9 +35,9 @@ import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
-        String email, mobile, name;
+        String email, mobile, name, gender;
 
-        TextView emailTv,phoneTv, nameTv, updateDataTv;
+        TextView emailTv,phoneTv, nameTv, genderTv, updateDataTv;
         ImageView imageView;
 
 //        Button updateBtn = findViewById(R.id.save_changes_button);
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         emailTv = findViewById(R.id.email);
         nameTv = findViewById(R.id.name);
         phoneTv = findViewById(R.id.phone);
+        genderTv = findViewById(R.id.gender);
 
         updateDataTv = findViewById(R.id.tvUpdateData);
 
@@ -103,10 +104,12 @@ public class MainActivity extends AppCompatActivity {
                     email = firebaseUser.getEmail();
                     name = firebaseUser.getDisplayName();
                     mobile = readUserDetails.mobile;
+                    gender = readUserDetails.gender;
 
                     emailTv.setText(email);
                     nameTv.setText(name);
                     phoneTv.setText(mobile);
+                    genderTv.setText(gender);
 
                     Uri uri = firebaseUser.getPhotoUrl();
 

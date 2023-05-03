@@ -34,6 +34,7 @@ public class SignUpActivity extends AppCompatActivity {
         EditText editTextSignupPassword = findViewById(R.id.signup_password);
         EditText editTextFullName = findViewById(R.id.signup_fullName);
         EditText editTextMobile = findViewById(R.id.signup_mobile);
+        EditText editTextGender = findViewById(R.id.signup_gender);
         Button signupBtn = findViewById(R.id.signup_btn);
         TextView loginTxt = findViewById(R.id.loginText);
 
@@ -45,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
             String pass = editTextSignupPassword.getText().toString().trim();
             String name = editTextFullName.getText().toString().trim();
             String mobile = editTextMobile.getText().toString().trim();
+            String gender = editTextGender.getText().toString().trim();
 
             if (TextUtils.isEmpty(email)){
                 editTextSignupEmail.setError("Fill in the email field");
@@ -59,12 +61,12 @@ public class SignUpActivity extends AppCompatActivity {
             }else if (TextUtils.isEmpty(mobile)) {
                 editTextMobile.setError("Fill in the mobile field");
             }else {
-                registerUser(name,email,pass,mobile);
+                registerUser(name,email,pass,mobile,gender);
             }
         });
     }
 
-    private void registerUser(String name, String email, String pass, String mobile) {
+    private void registerUser(String name, String email, String pass, String mobile, String gender) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(SignUpActivity.this,
                 new OnCompleteListener<AuthResult>() {
@@ -77,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                             firebaseUser.updateProfile(profileChangeRequest);
 
-                            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(email,name,mobile);
+                            ReadWriteUserDetails writeUserDetails = new ReadWriteUserDetails(email,name,mobile,gender);
                             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Registered Users");
 
                             reference.child(firebaseUser.getUid()).setValue(writeUserDetails).addOnCompleteListener(new OnCompleteListener<Void>() {

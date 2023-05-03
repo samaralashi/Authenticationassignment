@@ -37,7 +37,7 @@
                 android:id="@+id/signup_fullName"
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
-                android:hint="FullName"
+                android:hint="FullName *"
                 android:drawableLeft="@drawable/fullname"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -49,7 +49,7 @@
                 android:layout_marginTop="30dp"
                 android:padding="8dp"
                 android:inputType="textEmailAddress"
-                android:hint="Email"
+                android:hint="Email *"
                 android:drawableLeft="@drawable/person"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -61,7 +61,18 @@
                 android:layout_marginTop="30dp"
                 android:padding="8dp"
                 android:inputType="textEmailAddress"
-                android:hint="Mobile"
+                android:hint="Mobile *"
+                android:drawableLeft="@drawable/fullname"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/signup_gender"
+                android:layout_marginTop="30dp"
+                android:padding="8dp"
+                android:hint="Gender"
                 android:drawableLeft="@drawable/mobile"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
@@ -73,7 +84,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="8dp"
                 android:inputType="textPassword"
-                android:hint="Password"
+                android:hint="Password *"
                 android:drawableLeft="@drawable/lock"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
