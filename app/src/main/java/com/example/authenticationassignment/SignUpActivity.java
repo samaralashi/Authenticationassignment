@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Objects;
 import java.util.regex.Pattern;
@@ -62,6 +64,18 @@ public class SignUpActivity extends AppCompatActivity {
                 editTextMobile.setError("Fill in the mobile field");
             }else {
                 registerUser(name,email,pass,mobile,gender);
+
+
+                FirebaseMessaging.getInstance().subscribeToTopic("Samar")
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.e("tag", "Done");
+                                if (!task.isSuccessful()){
+                                    Log.e("tag", "Failed");
+                                }
+                            }
+                        });
             }
         });
     }
@@ -74,6 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             Toast.makeText(SignUpActivity.this, "User Register Successfully", Toast.LENGTH_SHORT).show();
+
                             FirebaseUser firebaseUser = auth.getCurrentUser();
 
                             UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
